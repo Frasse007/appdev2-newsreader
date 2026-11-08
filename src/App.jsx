@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { ArticlesProvider } from './context/ArticlesContext';
+import { Login } from './components/Login';
 import Layout from './components/Layout';
 import HomePage from './pages/HomePage';
 import SearchPage from './pages/SearchPage';
@@ -16,6 +17,7 @@ function App() {
               <Route path="/" element={<HomePage />} />
               <Route path="/search" element={<SearchPage />} />
               <Route path="/saved" element={<SavedArticlesPage />} />
+              <Route path="/login" element={<Login />} />
             </Routes>
           </Layout>
         </BrowserRouter>
