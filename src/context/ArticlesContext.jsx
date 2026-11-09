@@ -1,34 +1,60 @@
 import React, { createContext, useContext, useState } from 'react';
+import { useAuth } from './AuthContext';
 
-// ⚠️ SECURITY ISSUE: This context is shared globally with no user authentication
-// All users see the same saved articles!
 const ArticlesContext = createContext();
 
 export function ArticlesProvider({ children }) {
-  const [savedArticles, setSavedArticles] = useState([]);
+  const { user } = useAuth();
+  
+  // Changes from array to an object with username as key
+  const [savedArticlesByUser, setSavedArticlesByUser] = useState({});
+
+  // New function to return current user's saved articles array
+  const getUserSavedArticles = () => {
+    if (!user || !user.username) return [];
+    return savedArticlesByUser[user.username] || [];
+  };
 
   const saveArticle = (article) => {
-    setSavedArticles(prev => {
-      // Check if article is already saved
-      if (prev.find(a => a.url === article.url)) {
+    if (!user || !user.username) return;
+    
+    const username = user.username;
+    setSavedArticlesByUser(prev => {
+      const userArticles = prev[username] || [];
+
+      // Check if article is already saved for this user
+      if (userArticles.some(a => a.url === article.url)) {
         return prev;
       }
-      return [...prev, article];
+      return {
+        ...prev,
+        [username]: [...userArticles, article]
+      };
     });
   };
 
   const removeArticle = (url) => {
-    setSavedArticles(prev => prev.filter(a => a.url !== url));
+    if (!user || !user.username) return;
+
+    const username = user.username;
+    setSavedArticlesByUser(prev => {
+      const userArticles = prev[username] || [];
+      return {
+        ...prev,
+        [username]: userArticles.filter(a => a.url !== url)
+      };
+    });
   };
 
   const isArticleSaved = (url) => {
-    return savedArticles.some(a => a.url === url);
+    const userArticles = getUserSavedArticles();
+    return userArticles.some(a => a.url === url);
   };
 
   return (
     <ArticlesContext.Provider 
       value={{ 
-        savedArticles, 
+        getUserSavedArticles, 
         saveArticle, 
         removeArticle, 
         isArticleSaved 
