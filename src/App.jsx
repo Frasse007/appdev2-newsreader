@@ -11,8 +11,8 @@ import AdminPage from './pages/AdminPage';
 
 function App() {
   return (
-    <ArticlesProvider>
-      <AuthProvider>
+    <AuthProvider>
+      <ArticlesProvider>
         <BrowserRouter>
           <Layout>
             <Routes>
@@ -24,8 +24,8 @@ function App() {
             </Routes>
           </Layout>
         </BrowserRouter>
-      </AuthProvider>
-    </ArticlesProvider>
+      </ArticlesProvider>
+    </AuthProvider>
   );
 }
 
