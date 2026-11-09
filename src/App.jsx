@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { ArticlesProvider } from './context/ArticlesContext';
-import { Login } from './components/Login';
+import Login from './components/Login';
 import Layout from './components/Layout';
 import HomePage from './pages/HomePage';
 import SearchPage from './pages/SearchPage';
