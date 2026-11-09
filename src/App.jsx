@@ -7,6 +7,7 @@ import HomePage from './pages/HomePage';
 import SearchPage from './pages/SearchPage';
 import SavedArticlesPage from './pages/SavedArticlesPage';
 import ProtectedRoute from './components/ProtectedRoute';
+import AdminPage from './pages/AdminPage';
 
 function App() {
   return (
@@ -17,8 +18,9 @@ function App() {
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/search" element={<SearchPage />} />
-              <Route path="/saved" element={<ProtectedRoute> <SavedArticlesPage /> </ProtectedRoute> } />
               <Route path="/login" element={<Login />} />
+              <Route path="/saved" element={<ProtectedRoute><SavedArticlesPage /></ProtectedRoute> } />
+              <Route path="/admin" element={<ProtectedRoute adminOnly={true}><AdminPage /></ProtectedRoute> } />
             </Routes>
           </Layout>
         </BrowserRouter>
