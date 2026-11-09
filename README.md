@@ -1,5 +1,7 @@
 # NewsReader Starter App
 
+[**Deployed URL**](https://appdev2-newsreader.vercel.app/)
+
 ⚠️ **IMPORTANT: This is intentionally insecure starter code!**
 
 This application has several security issues that you will need to fix as part of your assignment:
